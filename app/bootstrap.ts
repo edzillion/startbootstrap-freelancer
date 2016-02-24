@@ -7,5 +7,4 @@ interface Window {
   // add some stuff here
 }
 
-console.log(window);
 bootstrap(AppComponent,[provide(Window, {useValue: window})]);

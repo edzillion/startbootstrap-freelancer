@@ -3,15 +3,15 @@ import {FORM_DIRECTIVES, ControlGroup, FormBuilder, Validators, AbstractControl,
 
 @Component({
   selector: 'nav-bar',
-  //template: '<div (click)="clickNavbar()">CLICKCLICKCLICKCLICKCLICKLCIKCLCICKLCICK</div>"'
   templateUrl: 'app/navbar'
 })
 
 export class Navbar {
-  clickNavbar: any;
+
   trayOpen: boolean;
   didScroll: boolean;
   isHeaderShrunk: boolean;
+  navBarButtonElem: any; //what type should this be?
 
   @Input() shrink;
 
@@ -22,11 +22,9 @@ export class Navbar {
       setTimeout( function(b) {
         var currScroll = document.documentElement.scrollTop || document.body.scrollTop;
         if (currScroll > 300) {
-          console.log("down");
           this.isHeaderShrunk = true;
         }
         else {
-          console.log("up");
           this.isHeaderShrunk = false;
         }
         this.didScroll = false;
@@ -39,15 +37,22 @@ export class Navbar {
       'navbar-shrink': this.isHeaderShrunk
     }
   }
-  constructor() {
 
+  clickNavButton(e) {
+    if (!this.navBarButtonElem) {
+      this.navBarButtonElem = (e.target || e.srcElement);
+    }
+    this.trayOpen = !this.trayOpen;
+  }
+
+  closeTray() {
+    this.navBarButtonElem.click();
+  }
+
+  constructor() {
     this.didScroll = false;
     this.isHeaderShrunk = false;
-    window.addEventListener( 'scroll', this.updateScroll.bind(this), false );
-
     this.trayOpen = false;
-    this.clickNavbar = function (event) {
-      this.trayOpen = !this.trayOpen;
-    }
+    window.addEventListener( 'scroll', this.updateScroll.bind(this), false );
   }
 }
