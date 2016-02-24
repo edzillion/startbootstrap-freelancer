@@ -162,6 +162,18 @@ header .intro-text .skills {
   color: white;
 }
 
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: white;
+}
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+  background-color: #1a242f;
+}
+
+.navbar-default .navbar-toggle {
+  border-color: #1a242f;
+}
+
 .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
   color: #18bc9c;
 }
