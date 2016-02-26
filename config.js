@@ -38,15 +38,16 @@ System.config({
     "css": "github:systemjs/plugin-css@0.1.20",
     "font-awesome": "npm:font-awesome@4.5.0",
     "ng2-bootstrap": "npm:ng2-bootstrap@1.0.3",
+    "plugin-typescript": "github:frankwallis/plugin-typescript@4.0.1",
     "systemjs-hot-reloader": "github:capaj/systemjs-hot-reloader@0.5.6",
-    "ts": "github:frankwallis/plugin-typescript@4.0.0",
+    "ts": "github:frankwallis/plugin-typescript@4.0.1",
     "github:capaj/systemjs-hot-reloader@0.5.6": {
       "debug": "npm:debug@2.2.0",
       "socket.io-client": "github:socketio/socket.io-client@1.4.5",
       "weakee": "npm:weakee@1.0.0"
     },
-    "github:frankwallis/plugin-typescript@4.0.0": {
-      "typescript": "npm:typescript@1.9.0-dev.20160221"
+    "github:frankwallis/plugin-typescript@4.0.1": {
+      "typescript": "npm:typescript@1.8.2"
     },
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"

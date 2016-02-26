@@ -46,7 +46,9 @@ export class Navbar {
   }
 
   closeTray() {
-    this.navBarButtonElem.click();
+    if (this.trayOpen) {
+      this.navBarButtonElem.click();
+    }
   }
 
   constructor() {
