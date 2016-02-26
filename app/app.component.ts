@@ -20,7 +20,6 @@ export class AppComponent {
   obj: any;
   isHeaderShrunk: boolean;
 
-
   constructor() {
 
   }
