@@ -15,7 +15,8 @@ export class Navbar {
 
   @Input() shrink;
 
-  updateScroll () {
+  updateScroll (event) {
+
     //this.didScroll & setTimeout used to throttle event calls.
     if( !this.didScroll ) {
       this.didScroll = true;
@@ -55,6 +56,5 @@ export class Navbar {
     this.didScroll = false;
     this.isHeaderShrunk = false;
     this.trayOpen = false;
-    window.addEventListener( 'scroll', this.updateScroll.bind(this), false );
   }
 }
