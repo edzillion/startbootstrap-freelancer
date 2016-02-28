@@ -1,23 +1,31 @@
-<!doctype html>
-<html>
 <head>
-  <title>My First Angular2 App</title>
-  <script src="lib/angular2-polyfills.min.js"></script>
+  <title>ng2-freelancer</title>
+  <script src="node_modules/angular2/bundles/angular2-polyfills.min.js"></script>
   <script src="jspm_packages/system.js"></script>
   <script src="config.js"></script>
-  <script src="bundle.js"></script>
 
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
   <link href="css/freelancer.css" rel="stylesheet">
 
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-  <script>
-    System.import('app/bootstrap');
-  </script>
 
 </head>
 <body>
   <app></app>
+  <script>
+    var readyForMainLoad;
+    if (location.origin.match(/localhost/)) {
+      System.trace = true;
+      readyForMainLoad = System.import ('systemjs-hot-reloader').then(function (HotReloader) {
+        hr = new HotReloader.default('http://localhost:9089');
+      });
+    }
+    Promise.resolve(readyForMainLoad).then(function () {
+      System.import ('app/bootstrap').then(function () {
+        console.log("ng2-freelancer running")
+      });
+    });
+  </script>
 </body>
 </html>
