@@ -15,6 +15,7 @@ System.config({
     "github:*": "jspm_packages/github/*",
     "npm:*": "jspm_packages/npm/*"
   },
+
   packages: {
     "app": {
       "main": "bootstrap",
@@ -27,6 +28,7 @@ System.config({
       }
     }
   },
+
   map: {
     "angular2": "npm:angular2@2.0.0-beta.7",
     "babel": "npm:babel-core@5.8.35",
