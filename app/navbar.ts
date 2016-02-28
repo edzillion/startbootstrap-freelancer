@@ -3,7 +3,7 @@ import {FORM_DIRECTIVES, ControlGroup, FormBuilder, Validators, AbstractControl,
 
 @Component({
   selector: 'nav-bar',
-  templateUrl: `
+  template: `
   <!-- Navigation -->
   <nav class="navbar navbar-default navbar-fixed-top" [ngClass]="{'navbar-shrink': isHeaderShrunk}" (window:scroll)="updateScroll($event)">
     <div class="container">
