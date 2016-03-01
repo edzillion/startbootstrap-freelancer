@@ -17,15 +17,25 @@
   },
   "devDependencies": {
     "chokidar-socket-emitter": "^0.5.0",
+    "del": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^2.0.2",
+    "gulp-concat-css": "^2.2.0",
+    "gulp-jspm": "^0.5.7",
+    "gulp-rename": "^1.2.2",
+    "gulp-typescript": "^2.12.0",
     "http-server": "^0.8.5",
-    "open": "0.0.5"
+    "open": "0.0.5",
+    "parallelshell": "^2.0.0",
+    "q": "^1.4.1",
+    "run-sequence": "^1.1.5",
+    "systemjs-builder": "^0.15.10",
+    "vinyl-paths": "^2.1.0"
   },
   "jspm": {
     "dependencies": {
       "angular2": "npm:angular2@^2.0.0-beta.7",
-      "css": "github:systemjs/plugin-css@^0.1.20",
       "font-awesome": "npm:font-awesome@^4.5.0",
-      "ng2-bootstrap": "npm:ng2-bootstrap@^1.0.3",
       "plugin-typescript": "github:frankwallis/plugin-typescript@^4.0.1",
       "systemjs-hot-reloader": "github:capaj/systemjs-hot-reloader@^0.5.6",
       "ts": "github:frankwallis/plugin-typescript@^4.0.0"
@@ -33,12 +43,15 @@
     "devDependencies": {
       "babel": "npm:babel-core@^5.8.24",
       "babel-runtime": "npm:babel-runtime@^5.8.24",
+      "bootstrap-less": "github:distros/bootstrap-less@^3.3.9",
       "clean-css": "npm:clean-css@^3.4.9",
       "core-js": "npm:core-js@^1.1.4"
     }
   },
   "scripts": {
-    "start": "node server"
+    "less": "autoless less css",
+    "server": "node server",
+    "start": "npm-run-parallel less server"
   },
   "repository": {
     "type": "git",
