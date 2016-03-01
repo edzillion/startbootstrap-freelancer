@@ -13,7 +13,9 @@ This is an Angular 2 version of [Freelancer](http://startbootstrap.com/template-
 ## Getting Started
 
 First, clone the rep
-* Clone the repo: `git clone https://github.com/edzillion/startbootstrap-freelancer.git`
+* `git clone https://github.com/edzillion/startbootstrap-freelancer.git`
+
+Install dependencies
 * `npm install`
 * `jspm install`
 
