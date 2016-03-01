@@ -1,5 +1,3 @@
-WIP
-
 # ng2-freelancer
 
 This is an Angular 2 version of [Freelancer](http://startbootstrap.com/template-overviews/freelancer/) which is a one page freelancer portfolio theme for [Bootstrap](http://getbootstrap.com/) created by [Start Bootstrap](http://startbootstrap.com/). This theme features several content sections, a responsive portfolio grid with hover effects, full page portfolio item modals, and a working PHP contact form.
