@@ -5,3 +5,5 @@ build.js
 build.js.map
 bundle.js
 bundle.js.map
+public
+ng2-bootstrap.min.js
