@@ -1,8 +1,12 @@
 import {Component} from 'angular2/core';
 import {FORM_DIRECTIVES, ControlGroup, FormBuilder, Validators, AbstractControl} from 'angular2/common';
+import {Http, Headers, HTTP_PROVIDERS} from 'angular2/http';
+import 'rxjs/add/operator/map';
+
 
 @Component({
   selector: 'contact-section',
+  viewProviders: [HTTP_PROVIDERS],
   directives: [FORM_DIRECTIVES],
   template: `
   <div class="container">
@@ -100,13 +104,14 @@ export class Contact {
   phone: AbstractControl;
   message: AbstractControl;
 
-  constructor(fb: FormBuilder) {
+  constructor(public http: Http, fb: FormBuilder) {
+    this.http = http;
     this.formSubmitted = false;
     this.myForm = fb.group({
       'name': ['', Validators.required],
       'email': ['', Validators.required],
       'phone': ['', Validators.required],
-      'message':['', Validators.required]
+      'message': ['', Validators.required]
     });
 
     this.name = this.myForm.controls['name'];
@@ -116,7 +121,19 @@ export class Contact {
   }
 
   onSubmit(value: string): void {
-    this.formSubmitted = true;
-    console.log('you submitted value: ', value);
+
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    this.http.post('http://localhost:9089/submit', JSON.stringify(value), {
+      headers: headers
+    })
+      .map(res => res.json())
+      .subscribe(
+      data => console.log(data),//this.saveJwt(data.id_token),
+      err => console.error('There was an error: ' + err),
+      () => console.log('form post Complete')
+      );
+
   }
 }
