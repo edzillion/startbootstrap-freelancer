@@ -125,6 +125,7 @@ export class Contact {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
+    //post form data here
     this.http.post('http://localhost:9089/submit', JSON.stringify(value), {
       headers: headers
     })
