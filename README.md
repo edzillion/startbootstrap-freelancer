@@ -7,6 +7,9 @@ This is an Angular 2 version of [Freelancer](http://startbootstrap.com/template-
 * gulp
 * typescript
 
+### This is a work in progress
+
+
 
 ## Getting Started
 
