@@ -16,18 +16,24 @@
     "zone.js": "0.5.10"
   },
   "devDependencies": {
+    "body-parser": "^1.15.0",
     "chokidar-socket-emitter": "^0.5.0",
     "del": "^2.2.0",
+    "express": "^4.13.4",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^2.0.2",
     "gulp-concat-css": "^2.2.0",
     "gulp-jspm": "^0.5.7",
+    "gulp-less": "^3.0.5",
     "gulp-rename": "^1.2.2",
     "gulp-typescript": "^2.12.0",
     "http-server": "^0.8.5",
+    "jspm": "^0.16.30",
+    "mailgun-js": "^0.7.7",
     "open": "0.0.5",
     "parallelshell": "^2.0.0",
     "q": "^1.4.1",
+    "rimraf": "^2.5.2",
     "run-sequence": "^1.1.5",
     "systemjs-builder": "^0.15.10",
     "vinyl-paths": "^2.1.0"
@@ -37,6 +43,7 @@
       "angular2": "npm:angular2@^2.0.0-beta.7",
       "font-awesome": "npm:font-awesome@^4.5.0",
       "plugin-typescript": "github:frankwallis/plugin-typescript@^4.0.1",
+      "rxjs": "npm:rxjs@^5.0.0-beta.2",
       "systemjs-hot-reloader": "github:capaj/systemjs-hot-reloader@^0.5.6",
       "ts": "github:frankwallis/plugin-typescript@^4.0.0"
     },
@@ -50,8 +57,9 @@
   },
   "scripts": {
     "less": "autoless less css",
-    "server": "node server",
-    "start": "npm-run-parallel less server"
+    "server": "node dev.server.js",
+    "start": "npm-run-parallel less server",
+    "postinstall" : "jspm install"
   },
   "repository": {
     "type": "git",

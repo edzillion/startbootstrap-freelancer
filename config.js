@@ -38,6 +38,7 @@ System.config({
     "core-js": "npm:core-js@1.2.6",
     "font-awesome": "npm:font-awesome@4.5.0",
     "plugin-typescript": "github:frankwallis/plugin-typescript@4.0.1",
+    "rxjs": "npm:rxjs@5.0.0-beta.2",
     "systemjs-hot-reloader": "github:capaj/systemjs-hot-reloader@0.5.6",
     "ts": "github:frankwallis/plugin-typescript@4.0.1",
     "github:capaj/systemjs-hot-reloader@0.5.6": {

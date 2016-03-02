@@ -1,31 +1,35 @@
 <head>
   <title>ng2-freelancer</title>
-  <script src="lib/angular2-polyfills.min.js"></script>
 
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/ng2-freelancer.min.css" rel="stylesheet">
-  <!-- <link href="css/font-awesome.css" rel="stylesheet"> -->
+
+  <script src="node_modules/angular2/bundles/angular2-polyfills.min.js"></script>
+  <script src="jspm_packages/system.js"></script>
+  <script src="config.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/ng2-freelancer.css" rel="stylesheet">
 
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
+
 </head>
 <body>
   <app></app>
-  <!-- <script>
+  <script>
     var readyForMainLoad;
-    if (location.origin.match(/localhost/)) {
-      System.trace = true;
-      readyForMainLoad = System.import ('systemjs-hot-reloader').then(function (HotReloader) {
-        hr = new HotReloader.default('http://localhost:9089');
-      });
-    }
+    System.trace = true;
+    readyForMainLoad = System.import ('systemjs-hot-reloader').then(function (HotReloader) {
+      hr = new HotReloader.default('http://localhost:9089');
+    });
+
     Promise.resolve(readyForMainLoad).then(function () {
       System.import ('app/bootstrap').then(function () {
-        console.log("ng2-freelancer running")
+        console.log("ng2-freelancer running in dev mode")
       });
     });
-  </script> -->
-  <script src="ng2-freelancer.min.js"></script>
+  </script>
+  <!-- <script src="ng2-freelancer.min.js"></script> -->
 </body>
 </html>

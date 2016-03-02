@@ -1,8 +1,12 @@
 //We're using the express framework and the mailgun-js wrapper
 var express = require('express');
 var Mailgun = require('mailgun-js');
+var bodyParser = require('body-parser');
+
 //init express
 var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 
 
 //Your api key, from Mailgun’s Control Panel
@@ -15,6 +19,9 @@ var domain = 'mg.ovidian.eu';
 var from_who = 'mail@ovidian.eu';
 
 app.use(express.static('public'));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //Do something when you're landing on the first page
 // app.get('/test', function(req, res) {
@@ -36,7 +43,7 @@ app.use(express.static('public'));
 // Send a message to the specified email address when you navigate to /submit/someaddr@email.com
 // The index redirects here
 app.get('/submit/:mail', function(req,res) {
-
+    console.log(req.body);
     //We pass the api_key and domain to the wrapper, or it won't be able to identify + send emails
     var mailgun = new Mailgun({apiKey: api_key, domain: domain});
 
@@ -51,20 +58,20 @@ app.get('/submit/:mail', function(req,res) {
     }
 
     //Invokes the method to send emails given the above data with the helper library
-    mailgun.messages().send(data, function (err, body) {
-        //If there is an error, render the error page
-        if (err) {
-            res.render('error', { error : err});
-            console.log("got an error: ", err);
-        }
-        //Else we can greet    and leave
-        else {
-            //Here "submitted.jade" is the view file for this landing page
-            //We pass the variable "email" from the url parameter in an object rendered by Jade
-            res.render('submitted', { email : req.params.mail });
-            console.log(body);
-        }
-    });
+    // mailgun.messages().send(data, function (err, body) {
+    //     //If there is an error, render the error page
+    //     if (err) {
+    //         res.render('error', { error : err});
+    //         console.log("got an error: ", err);
+    //     }
+    //     //Else we can greet    and leave
+    //     else {
+    //         //Here "submitted.jade" is the view file for this landing page
+    //         //We pass the variable "email" from the url parameter in an object rendered by Jade
+    //         res.render('submitted', { email : req.params.mail });
+    //         console.log(body);
+    //     }
+    // });
 
 });
 

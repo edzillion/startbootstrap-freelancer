@@ -1,8 +1,9 @@
 import {bootstrap} from 'angular2/platform/browser';
+//import {Http, Headers, HTTP_PROVIDERS} from 'angular2/http';
 import {AppComponent} from "./app.component";
-import {provide} from 'angular2/core';
 import {enableProdMode} from 'angular2/core'
 
-enableProdMode();
 
-bootstrap(AppComponent,[provide(Window, {useValue: window})]);
+//enableProdMode();
+
+bootstrap(AppComponent);
