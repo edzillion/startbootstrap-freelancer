@@ -30,6 +30,7 @@
     "http-server": "^0.8.5",
     "jspm": "^0.16.30",
     "mailgun-js": "^0.7.7",
+    "npm-run-parallel": "^0.4.3",
     "open": "0.0.5",
     "parallelshell": "^2.0.0",
     "q": "^1.4.1",
@@ -59,7 +60,7 @@
     "less": "autoless less css",
     "server": "node dev.server.js",
     "start": "npm-run-parallel less server",
-    "postinstall" : "jspm install"
+    "postinstall": "jspm install"
   },
   "repository": {
     "type": "git",
