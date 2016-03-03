@@ -4,20 +4,12 @@ const open = require('open')
 var express = require('express');
 var Mailgun = require('mailgun-js');
 var bodyParser = require('body-parser');
+var config = require('./dev.config');
 
 //init express
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-
-//Your api key, from Mailgun’s Control Panel
-var api_key;
-
-//Your domain, from the Mailgun Control Panel
-var domain = 'mg.ovidian.eu';
-
-//Your sending email address
-var from_who = 'mail@ovidian.eu';
 
 app.use(express.static('./'));
 
@@ -34,7 +26,7 @@ app.get('/test', function(req,res) {
 app.post('/submit', function(req,res) {
   console.log('submitted');
     //We pass the api_key and domain to the wrapper, or it won't be able to identify + send emails
-    var mailgun = new Mailgun({apiKey: api_key, domain: domain});
+    var mailgun = new Mailgun({apiKey: config.mailgun.api_key, domain: config.mailgun.domain});
 
     var messageHTML = '<h2>ovidian.eu contact</h2><h2>from' +req.body.name+ ' @' +req.body.phone+ '</h2><p>' +req.body.message+ '</p>';
 
