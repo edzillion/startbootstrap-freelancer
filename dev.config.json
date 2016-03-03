@@ -1,0 +1,8 @@
+{
+  "domain":"example.com",
+  "mailgun":{
+    "api_key":"key-XXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "domain":"mg.example.com",
+    "from_email":"mail@example.com"
+  }
+}
