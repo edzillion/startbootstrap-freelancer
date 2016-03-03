@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
 import {FORM_DIRECTIVES, ControlGroup, FormBuilder, Validators, AbstractControl} from 'angular2/common';
-import {Http, Headers, HTTP_PROVIDERS} from 'angular2/http';
+import {Http, Headers, Response, HTTP_PROVIDERS} from 'angular2/http';
 import 'rxjs/add/operator/map';
 
 
@@ -129,12 +129,8 @@ export class Contact {
     this.http.post('http://localhost:9089/submit', JSON.stringify(value), {
       headers: headers
     })
-      .map(res => res.json())
-      .subscribe(
-      data => console.log(data),
-      err => console.error('There was an error: ' + err),
-      () => console.log('form post Complete')
-      );
+    .map(res => res.text())
+    .subscribe((res:Response) => console.log(res));
 
   }
 }
