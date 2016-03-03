@@ -1,8 +1,20 @@
 import {Component} from 'angular2/core';
-import {FORM_DIRECTIVES, ControlGroup, FormBuilder, Validators, AbstractControl} from 'angular2/common';
+import {FORM_DIRECTIVES, ControlGroup, Control, FormBuilder, Validators, AbstractControl} from 'angular2/common';
 import {Http, Headers, Response, HTTP_PROVIDERS} from 'angular2/http';
 import 'rxjs/add/operator/map';
 
+interface ValidationResult {
+  [key: string]: boolean;
+}
+class CustomValidator {
+  static email(control: Control): ValidationResult {
+    var EMAIL_REGEXP = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
+    if (!EMAIL_REGEXP.test(control.value)) {
+      return { invalidEmail: true };
+    }
+    return null;
+  }
+}
 
 @Component({
   selector: 'contact-section',
@@ -28,7 +40,8 @@ import 'rxjs/add/operator/map';
             placeholder="Name"
             [ngFormControl]="myForm.controls['name']"/>
 
-            <div *ngIf="!name.valid && formSubmitted" class="help-block">
+
+            <div *ngIf="!name.valid && !name.pristine" class="help-block">
               <ul role="alert">
                 <li><p class="text-danger">Please enter your name.</p></li>
               </ul>
@@ -43,9 +56,9 @@ import 'rxjs/add/operator/map';
             placeholder="Email Address"
             [ngFormControl]="myForm.controls['email']"/>
 
-            <div  *ngIf="!email.valid && formSubmitted" class="help-block">
+            <div  *ngIf="!email.valid && !email.pristine" class="help-block">
               <ul role="alert">
-                <li><p class="text-danger">Please enter your email address.</p></li>
+                <li><p class="text-danger">Please enter a valid email address.</p></li>
               </ul>
             </div>
           </div>
@@ -58,7 +71,7 @@ import 'rxjs/add/operator/map';
             id="phone"
             [ngFormControl]="myForm.controls['phone']"/>
 
-            <div *ngIf="!phone.valid && formSubmitted" class="help-block">
+            <div *ngIf="!phone.valid && !phone.pristine" class="help-block">
                 <ul role="alert">
                   <li><p class="text-danger">Please enter your phone number.</p></li>
                 </ul>
@@ -73,7 +86,7 @@ import 'rxjs/add/operator/map';
             id="message"
             [ngFormControl]="myForm.controls['message']"></textarea>
 
-            <div *ngIf="!message.valid && formSubmitted" class="help-block">
+            <div *ngIf="!message.valid && !message.pristine" class="help-block">
               <ul role="alert">
                 <li><p class="text-danger">Please enter a message.</p></li>
               </ul>
@@ -84,7 +97,7 @@ import 'rxjs/add/operator/map';
         <div id="success"></div>
         <div class="row">
           <div class="form-group col-xs-12">
-            <button type="submit" class="btn btn-success btn-lg">Send</button>
+            <button type="submit" class="btn btn-success btn-lg" [disabled]="!myForm.valid">Send</button>
           </div>
         </div>
       </form>
@@ -109,7 +122,7 @@ export class Contact {
     this.formSubmitted = false;
     this.myForm = fb.group({
       'name': ['', Validators.required],
-      'email': ['', Validators.required],
+      'email': ['',Validators.compose([Validators.required, CustomValidator.email])],
       'phone': ['', Validators.required],
       'message': ['', Validators.required]
     });
@@ -122,6 +135,10 @@ export class Contact {
 
   onSubmit(value: string): void {
 
+    this.formSubmitted = true;
+    if (!this.myForm.valid) {
+      return;
+    }
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -129,8 +146,11 @@ export class Contact {
     this.http.post('http://localhost:9089/submit', JSON.stringify(value), {
       headers: headers
     })
-    .map(res => res.text())
-    .subscribe((res:Response) => console.log(res));
+      .map(res => res.text())
+      .subscribe((res: Response) => this.onFormComplete(res));
+  }
 
+  onFormComplete(result): void {
+    console.log(result);
   }
 }
