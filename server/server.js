@@ -8,16 +8,6 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-
-//Your api key, from Mailgun’s Control Panel
-var api_key = 'key-24cbf014a8a8eea22776f978f554909a';
-
-//Your domain, from the Mailgun Control Panel
-var domain = 'mg.ovidian.eu';
-
-//Your sending email address
-var from_who = 'mail@ovidian.eu';
-
 app.use(express.static('public'));
 
 app.use(bodyParser.json());
