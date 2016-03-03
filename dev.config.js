@@ -1,10 +1,10 @@
 var config = {};
 
-config.domain = "example.com";
+config.domain = "ovidian.eu";
 
 config.mailgun = {};
-config.mailgun.api_key = "key-XXXXXXXXXXXXXXXXXXXXX";
-config.mailgun.domain = "mg.example.com";
-config.mailgun.from_email = "mail@example.com";
+config.mailgun.api_key = "key-24cbf014a8a8eea22776f978f554909a";
+config.mailgun.domain = "mg.ovidian.eu";
+config.mailgun.from_email = "mail@ovidian.eu";
 
 module.exports = config;

@@ -14,12 +14,6 @@ var io = require('socket.io')(server);
 app.use(express.static('./'));
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-
-app.get('/test', function(req,res) {
-    console.log('test');
-  });
 
 // Send a message to the specified email address when you navigate to /submit/someaddr@email.com
 // The index redirects here
@@ -44,15 +38,18 @@ app.post('/submit', function(req,res) {
     mailgun.messages().send(data, function (err, body) {
         //If there is an error, render the error page
         if (err) {
-            res.render('error', { error : err});
+            //res.render('error', { error : err});
             console.log("got an error: ", err);
+            res.send("Error - check console");
         }
         //Else we can greet    and leave
         else {
             //Here "submitted.jade" is the view file for this landing page
             //We pass the variable "email" from the url parameter in an object rendered by Jade
-            res.render('submitted', { email : req.params.mail });
+            //res.render('submitted', { email : req.params.mail });
+
             console.log(body);
+            res.send("Contact form sent");
         }
     });
 

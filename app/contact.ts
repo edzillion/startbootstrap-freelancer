@@ -131,7 +131,7 @@ export class Contact {
     })
       .map(res => res.json())
       .subscribe(
-      data => console.log(data),//this.saveJwt(data.id_token),
+      data => console.log(data),
       err => console.error('There was an error: ' + err),
       () => console.log('form post Complete')
       );
