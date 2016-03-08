@@ -8,3 +8,4 @@ bundle.js.map
 public
 ng2-bootstrap.min.js
 dev.config.js
+server/config.js
