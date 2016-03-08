@@ -1,9 +1,13 @@
 'use strict'
 const open = require('open')
-//We're using the express framework and the mailgun-js wrapper
+  //We're using the express framework and the mailgun-js wrapper
 var express = require('express');
+var helmet = require('helmet');
 var Mailgun = require('mailgun-js');
 var bodyParser = require('body-parser');
+var expressSanitized = require('express-sanitized');
+var underscore = require('underscore');
+
 var config = require('./dev.config');
 
 //init express
@@ -11,49 +15,58 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
+
+app.use(helmet());
+
+
+
+// // … existing code …
+// app.use(middleware.sanitizer());
+// app.use(app.router);
+// app.use(middleware.errorHandler({
+//     dumpExceptions: true,
+//     showStack: true
+// }));
+
 app.use(express.static('./'));
 
 app.use(bodyParser.json());
+app.use(expressSanitized());
 
 // Send a message to the specified email address when you navigate to /submit/someaddr@email.com
 // The index redirects here
-app.post('/submit', function(req,res) {
-  console.log('submitted');
-    //We pass the api_key and domain to the wrapper, or it won't be able to identify + send emails
-    var mailgun = new Mailgun({apiKey: config.mailgun.api_key, domain: config.mailgun.domain});
+app.post('/submit', function(req, res) {
 
-    var messageHTML = '<h2>ovidian.eu contact</h2><h2>from' +req.body.name+ ' @' +req.body.phone+ '</h2><p>' +req.body.message+ '</p>';
+  //We pass the api_key and domain to the wrapper, or it won't be able to identify + send emails
+  var mailgun = new Mailgun({
+    apiKey: config.mailgun.api_key,
+    domain: config.mailgun.domain
+  });
 
-    var data = {
+  var messageHTML = '<h3>ovidian.eu contact</h3><br><p>from' + req.body.name + ' @ ' + req.body.phone + '</p><br><p>' + req.body.message + '</p>';
+
+  var data = {
     //Specify email data
-      from: req.body.email,
+    from: req.body.email,
     //The email to contact
-      to: 'edzillion@gmail.com',
+    to: config.mailgun.to_email,
     //Subject and text data
-      subject: 'ovidian.eu contact',
-      html: messageHTML
+    subject: 'ovidian.eu contact',
+    html: messageHTML
+  }
+
+  //Invokes the method to send emails given the above data with the helper library
+  mailgun.messages().send(data, function(err, body) {
+    //If there is an error, render the error page
+    if (err) {
+      console.log("got an error: ", err);
+      res.send(false);
+    } else {
+      res.send(true);
     }
-
-    //Invokes the method to send emails given the above data with the helper library
-    // mailgun.messages().send(data, function (err, body) {
-    //     //If there is an error, render the error page
-    //     if (err) {
-    //         //res.render('error', { error : err});
-    //         console.log("got an error: ", err);
-    //         res.send("Error - check console");
-    //     }
-    //     //Else we can greet    and leave
-    //     else {
-    //         //Here "submitted.jade" is the view file for this landing page
-    //         //We pass the variable "email" from the url parameter in an object rendered by Jade
-    //         //res.render('submitted', { email : req.params.mail });
-    //
-    //         console.log(body);
-    //         res.send("Contact form sent");
-    //     }
-    // });
-
+  });
 });
+
 
 // app.get('/validate/:mail', function(req,res) {
 //     var mailgun = new Mailgun({apiKey: api_key, domain: domain});
@@ -105,7 +118,9 @@ app.post('/submit', function(req,res) {
 //         });
 // })
 
-require('chokidar-socket-emitter')({app: server})
+require('chokidar-socket-emitter')({
+  app: server
+})
 
-server.listen(9089);
+app.listen(9089);
 open('http://localhost:9089')

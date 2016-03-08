@@ -1,0 +1,16 @@
+<head>
+  <title>ng2-freelancer</title>
+  <script src="lib/angular2-polyfills.min.js"></script>
+
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/ng2-freelancer.min.css" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+  <app></app>
+  <script src="ng2-freelancer.min.js"></script>
+</body>
+</html>

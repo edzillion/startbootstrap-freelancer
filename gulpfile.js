@@ -15,17 +15,17 @@ var vinylPaths = require('vinyl-paths');
 
 var mySystem = new jspm.Loader();
 
-gulp.task('font-awesome-less', function () {
+gulp.task('font-awesome-less', function() {
   var awesomeLessLoc;
   var deferred = Q.defer();
 
   mySystem.normalize('font-awesome').then(function(normalized) {
     var i = normalized.indexOf('jspm_packages');
-    awesomeLessLoc = './' + normalized.slice(i,-3) + '/less/font-awesome.less';
+    awesomeLessLoc = './' + normalized.slice(i, -3) + '/less/font-awesome.less';
 
     gulp.src(awesomeLessLoc)
       .pipe(less({
-        paths: [ path.join(__dirname, 'less', 'includes') ]
+        paths: [path.join(__dirname, 'less', 'includes')]
       }))
       .pipe(gulp.dest('./css'))
       .on('end', function() {
@@ -36,7 +36,7 @@ gulp.task('font-awesome-less', function () {
   return deferred.promise;
 });
 
-gulp.task('bootstrap-less', function () {
+gulp.task('bootstrap-less', function() {
   var bootstrapLessLoc;
   var deferred = Q.defer();
 
@@ -44,11 +44,11 @@ gulp.task('bootstrap-less', function () {
 
 
     var i = normalized.indexOf('jspm_packages');
-    bootstrapLessLoc = './' + normalized.slice(i,-3) + '/bootstrap/bootstrap.less';
+    bootstrapLessLoc = './' + normalized.slice(i, -3) + '/bootstrap/bootstrap.less';
     //console.log(bootstrapLessLoc);
     gulp.src(bootstrapLessLoc)
       .pipe(less({
-        paths: [ path.join(__dirname, 'less', 'includes') ]
+        paths: [path.join(__dirname, 'less', 'includes')]
       }))
       .pipe(gulp.dest('./css'))
       .on('end', function() {
@@ -59,15 +59,15 @@ gulp.task('bootstrap-less', function () {
   return deferred.promise;
 });
 
-gulp.task('ng2-freelancer-less', function () {
+gulp.task('ng2-freelancer-less', function() {
   return gulp.src('less/ng2-freelancer.less')
     .pipe(less({
-      paths: [ path.join(__dirname, 'less', 'includes') ]
+      paths: [path.join(__dirname, 'less', 'includes')]
     }))
     .pipe(gulp.dest('./css'));
 });
 
-gulp.task('bootstrap-min', function () {
+gulp.task('bootstrap-min', function() {
   return gulp.src('css/bootstrap.css')
     //.pipe(vinylPaths(del))
     .pipe(cleanCSS())
@@ -76,39 +76,42 @@ gulp.task('bootstrap-min', function () {
 });
 
 
-gulp.task('css-bundle', function () {
-  return gulp.src(['css/ng2-freelancer.css','css/font-awesome.css'])
+gulp.task('css-bundle', function() {
+  return gulp.src(['css/ng2-freelancer.css', 'css/font-awesome.css'])
     .pipe(concatCSS('ng2-freelancer.min.css'))
     .pipe(gulp.dest('css'))
     .pipe(cleanCSS())
     .pipe(gulp.dest('public/css/'));
 });
 
-gulp.task('typescript', function () {
+gulp.task('typescript', function() {
   return gulp.src('app/**/*.ts')
     .pipe(ts())
     .pipe(gulp.dest('./app'));
 });
 
-gulp.task('jspm-bundle-sfx', function () {
+gulp.task('jspm-bundle-sfx', function() {
   gulp.src('app/bootstrap.ts')
-    .pipe(gulpJSPM({selfExecutingBundle: true})) // `jspm bundle-sfx main`
+    .pipe(gulpJSPM({
+      selfExecutingBundle: true
+    })) // `jspm bundle-sfx main`
     .pipe(rename('ng2-freelancer.min.js'))
     .pipe(gulp.dest('public'));
 });
 
 gulp.task('css', function(callback) {
-  runSequence(['font-awesome-less','ng2-freelancer-less','bootstrap-less'], ['bootstrap-min', 'css-bundle'], callback);
+  runSequence(['font-awesome-less', 'ng2-freelancer-less', 'bootstrap-less'], ['bootstrap-min', 'css-bundle'], callback);
 });
 
-gulp.task('js', function(callback){
+gulp.task('js', function(callback) {
   runSequence('jspm-bundle-sfx');
 });
 
 gulp.task('html', function() {
-  return gulp.src('index.html')
+  return gulp.src('index.pub')
+    .pipe(rename('index.html'))
     .pipe(gulp.dest('public/'));
-})
+});
 
 gulp.task('bootstrap', function(callback) {
   runSequence('bootstrap-less', 'bootstrap-min', callback);
@@ -116,17 +119,17 @@ gulp.task('bootstrap', function(callback) {
 
 gulp.task('img', function() {
   return gulp.src(['img/**/*'])
-  .pipe(gulp.dest('public/img'));
+    .pipe(gulp.dest('public/img'));
 });
 
 gulp.task('fonts', function() {
   return gulp.src(['fonts/**/*'])
-  .pipe(gulp.dest('public/fonts'));
+    .pipe(gulp.dest('public/fonts'));
 });
 
 gulp.task('lib', function() {
   return gulp.src(['lib/**/*'])
-  .pipe(gulp.dest('public/lib'));
+    .pipe(gulp.dest('public/lib'));
 });
 
 gulp.task('assets', ['img', 'fonts', 'lib']);

@@ -14,6 +14,19 @@ class CustomValidator {
     }
     return null;
   }
+  static sanitize(control: Control): ValidationResult {
+    var curValue = control.value;
+    var newValue = curValue
+      .replace(/&gt;/gi, '>')
+      .replace(/&lt;/gi, '<')
+      .replace(/<(.|n)*?>/gim, '')
+      .replace(/(&gt;|&lt;|&copy;|&quot;|&amp;)/gi, '');
+
+    if (curValue !== newValue) {
+      return { invalidSanitize: true };
+    }
+    return null;
+  }
 }
 
 @Component({
@@ -88,16 +101,30 @@ class CustomValidator {
 
             <div *ngIf="!message.valid && !message.pristine" class="help-block">
               <ul role="alert">
-                <li><p class="text-danger">Please enter a message.</p></li>
+                <li>
+                  <p [hidden]="!message.errors.required" class="text-danger">Please enter a message.
+
+                  </p>
+                  <p [hidden]="!message.errors.invalidSanitize" class="text-danger">HTML is not permitted</p>
+                </li>
               </ul>
             </div>
           </div>
         </div>
         <br>
-        <div id="success"></div>
+        <div id="success">
+          <div [hidden]="!formSubmitted || !formSuccess || formSending" class='alert alert-success'>
+            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+            <strong>Your message has been sent. </strong>
+          </div>
+          <div [hidden]="!formSubmitted || formSuccess || formSending" class='alert alert-danger'>
+            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+            <strong>Sorry {{name.value}}, it seems that my mail server is not responding. Please try again later!</strong>
+          </div>
+        </div>
         <div class="row">
           <div class="form-group col-xs-12">
-            <button type="submit" class="btn btn-success btn-lg" [disabled]="!myForm.valid">Send</button>
+            <button type="submit" class="btn btn-success btn-lg" [disabled]="!myForm.valid || formSending">Send</button>
           </div>
         </div>
       </form>
@@ -111,6 +138,8 @@ class CustomValidator {
 export class Contact {
   myForm: ControlGroup;
   formSubmitted: boolean;
+  formSuccess: boolean;
+  formSending: boolean;
 
   name: AbstractControl;
   email: AbstractControl;
@@ -120,11 +149,12 @@ export class Contact {
   constructor(public http: Http, fb: FormBuilder) {
     this.http = http;
     this.formSubmitted = false;
+    this.formSuccess = false;
     this.myForm = fb.group({
       'name': ['', Validators.required],
-      'email': ['',Validators.compose([Validators.required, CustomValidator.email])],
+      'email': ['', Validators.compose([Validators.required, CustomValidator.email])],
       'phone': ['', Validators.required],
-      'message': ['', Validators.required]
+      'message': ['', Validators.compose([Validators.required, CustomValidator.sanitize])]
     });
 
     this.name = this.myForm.controls['name'];
@@ -136,6 +166,8 @@ export class Contact {
   onSubmit(value: string): void {
 
     this.formSubmitted = true;
+    this.formSending = true;
+
     if (!this.myForm.valid) {
       return;
     }
@@ -146,11 +178,12 @@ export class Contact {
     this.http.post('http://localhost:9089/submit', JSON.stringify(value), {
       headers: headers
     })
-      .map(res => res.text())
+      .map(res => res.json())
       .subscribe((res: Response) => this.onFormComplete(res));
   }
 
   onFormComplete(result): void {
-    console.log(result);
+    this.formSuccess = result;
+    this.formSending = false;
   }
 }
