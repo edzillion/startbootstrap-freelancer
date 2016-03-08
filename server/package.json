@@ -1,7 +1,7 @@
 {
   "name": "ng2-freelancer-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "expressjs server for ng2-freelancer",
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.15.0",
@@ -15,6 +15,9 @@
   "scripts": {
     "start": "node server.js"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Ed Murphy <edzillion@gmail.com>",
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE"
+  },
 }
