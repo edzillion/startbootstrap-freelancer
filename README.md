@@ -1,6 +1,6 @@
 # ng2-freelancer
 
-This is an Angular 2 version of [Freelancer](http://startbootstrap.com/template-overviews/freelancer/) which is a one page freelancer portfolio theme for [Bootstrap](http://getbootstrap.com/) created by [Start Bootstrap](http://startbootstrap.com/). This theme features several content sections, a responsive portfolio grid with hover effects, full page portfolio item modals, and a working PHP contact form.
+This is an Angular 2 version of [Freelancer](http://startbootstrap.com/template-overviews/freelancer/) which is a one page freelancer portfolio theme for [Bootstrap](http://getbootstrap.com/) created by [Start Bootstrap](http://startbootstrap.com/). This theme features several content sections, a responsive portfolio grid with hover effects, full page portfolio item modals, and an expressjs mailgun backend for the contact form.
 
 * angular 2
 * jspm
@@ -61,7 +61,8 @@ Build the app:
           ├── package.json     # Server package.json
           └── server.js        # Server module
 
-* Your config.js file should look like this:
+
+* Your config.js/dev.config.js file should look like this:
 
 
 ```javascript
