@@ -10,6 +10,7 @@ This is an Angular 2 version of [Freelancer](http://startbootstrap.com/template-
 
 ### This is a work in progress
 
+I plan to add to this as Angular 2 gets closer to release.
 
 
 ## Getting Started
