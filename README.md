@@ -6,6 +6,7 @@ This is an Angular 2 version of [Freelancer](http://startbootstrap.com/template-
 * jspm
 * gulp
 * typescript
+* expressjs backend
 
 ### This is a work in progress
 
@@ -18,7 +19,6 @@ First, clone the rep
 
 Install dependencies
 * `npm install`
-* `jspm install`
 
 Run locally
 * `npm start`
@@ -26,19 +26,61 @@ Run locally
 Build the app:
 * `gulp build`
 
-### Project structure (ignoring jspm & node)
+## Project structure (ignoring jspm & node)
 
     .
     ├── app                    # Typescript src with inlined html
     ├── css                    # Un-minified CSS, font & bootstrap css compiled here
-    ├── fonts                  # Font awesome fonts etc
+    ├── fonts                  # Font awesome fonts etc TODO: add local google fonts here
     ├── img                    # Images
     ├── less                   # Custom less rules
     ├── lib                    # angular2-polyfills needs to be loaded first
-    └── public                 # Build folder
+    ├── public                 # Build folder
+    └── server                 # Server backend
 
+
+## Deploy
+
+* Upload public files to /server/public
+
+* Upload server.js & package.json and run `npm install`
+
+* You should end up with a structure similar to this:
+
+* Update your webserver to host example.com at the port specified in config.js
+
+    .
+    ├── public_html            # Empty public folder, express will serve files from here
+    └── server                 #
+          ├── node_modules     # Server modules
+          ├── public           # Location of public files
+          ├── config.js        # Server config
+          ├── package.json     # Server package.json
+          └── server.js        # Server module
+
+* Your config.js file should look like this:
+
+`
+var config = {};
+
+config.domain = "example.com";
+config.port = "9089";
+
+config.mailgun = {};
+config.mailgun.api_key = "key-XXXXXXXXXXXXXXXXXXXXXXXX";
+config.mailgun.domain = "mg.example.com";
+config.mailgun.from_email = "mail@example.com";
+config.mailgun.to_email = "to@example.com";
+
+module.exports = config;
+
+`
 
 ## Bugs and Issues
+
+* Less rewrite - currently just overriding specific CSS rules
+* Portfolio modals not displaying
+* Animations not included until release of ng2 animation system
 
 Have a bug or an issue with this template? [Open a new issue](https://github.com/edzillion/startbootstrap-freelancer/issues)
 
