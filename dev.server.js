@@ -15,18 +15,7 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-
 app.use(helmet());
-
-
-
-// // … existing code …
-// app.use(middleware.sanitizer());
-// app.use(app.router);
-// app.use(middleware.errorHandler({
-//     dumpExceptions: true,
-//     showStack: true
-// }));
 
 app.use(express.static('./'));
 
@@ -123,4 +112,4 @@ require('chokidar-socket-emitter')({
 })
 
 app.listen(config.port);
-open('http://localhost:9089')
+open('http://localhost:' + config.port);
