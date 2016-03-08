@@ -49,6 +49,8 @@ Build the app:
 
 * Update your webserver to host example.com at the port specified in config.js
 
+### Deploy Structure
+
     .
     ├── public_html            # Empty public folder, express will serve files from here
     └── server                 #
