@@ -51,4 +51,4 @@ app.post('/submit', function(req, res) {
   });
 });
 
-app.listen(3030);
+app.listen(config.port);

@@ -122,5 +122,5 @@ require('chokidar-socket-emitter')({
   app: server
 })
 
-app.listen(9089);
+app.listen(config.port);
 open('http://localhost:9089')
