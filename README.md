@@ -75,7 +75,8 @@ Build the app:
   config.mailgun.from_email = "mail@example.com";
   config.mailgun.to_email = "to@example.com";
 
-  module.exports = config;```
+  module.exports = config;
+```
 
 ## Bugs and Issues
 
