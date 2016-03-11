@@ -175,7 +175,7 @@ export class Contact {
     headers.append('Content-Type', 'application/json');
 
     //post form data here
-    this.http.post('http://localhost:9089/submit', JSON.stringify(value), {
+    this.http.post('https://localhost:9089/submit', JSON.stringify(value), {
       headers: headers
     })
       .map(res => res.json())
