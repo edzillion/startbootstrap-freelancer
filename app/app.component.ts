@@ -133,7 +133,7 @@ import {PortfolioItem} from './portfolioItem';
 
   <!-- Portfolio Modals -->
 
-  <modal [item]="portfolioItem" [isOpen]="modalOpen" (isOpenChange)="modalChange($event)"></modal> -->
+  <modal [item]="portfolioItem" [isOpen]="modalOpen" (isOpenChange)="modalChange($event)"></modal>
 
   `
 })

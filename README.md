@@ -83,7 +83,7 @@ Build the app:
 ## Bugs and Issues
 
 * Less rewrite - currently just overriding specific CSS rules
-* Portfolio modals not displaying
+* ~~Portfolio modals not displaying~~
 * Animations not included until release of ng2 animation system
 
 Have a bug or an issue with this template? [Open a new issue](https://github.com/edzillion/startbootstrap-freelancer/issues)
